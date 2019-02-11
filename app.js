@@ -18,23 +18,37 @@ jsPlumb.ready(function () {
             } ],
             [ "Label", {
                 location: 0.1,
+                label: 'This is a label',
                 id: "label",
                 cssClass: "aLabel",
                 events:{
-                    tap:function() { alert("hey"); }
+                    click: function() { alert("hey"); }
                 }
             }]
         ],
         // Container: "canvas"
     });
 
-    instance.addEndpoint('a');
-    instance.addEndpoint('b');
+    var sourceEndpoint = {
+        isSource: true,
+        connector: [ "Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true } ],
+        anchor: 'Right'
+    };
+
+    var targetEndpoint = {
+        isTarget: true,
+        anchor: 'Left'
+    }
+
+    instance.addEndpoint('a', sourceEndpoint);
+    instance.addEndpoint('b', targetEndpoint);
 
     // jsPlumb.connect({source: "a",target: "b",}, common);
 
     var els = document.querySelectorAll(".note");
-    jsPlumb.draggable(els);
+    instance.draggable(els);
 
-    console.log('ji');
+    instance.bind("connectionDragStop", function (connection) {
+        console.log("connection " + connection.id + " was dragged");
+    });
 });
