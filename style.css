@@ -11,10 +11,14 @@ body {
     width: 100px; height: 100px; position: absolute;
 }
 
-.a {
+#a {
     background: red; left: 20px; top: 20px;
 }
 
-.b {
+#b {
     background: blue; left: 400px; top: 200px;
+}
+
+#c {
+    background: green; left: 700px; top: 100px;
 }

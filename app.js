@@ -16,15 +16,6 @@ jsPlumb.ready(function () {
                     click:function() { alert("you clicked on the arrow overlay")}
                 }
             } ],
-            [ "Label", {
-                location: 0.1,
-                label: 'This is a label',
-                id: "label",
-                cssClass: "aLabel",
-                events:{
-                    click: function() { alert("hey"); }
-                }
-            }]
         ],
         // Container: "canvas"
     });
@@ -32,18 +23,31 @@ jsPlumb.ready(function () {
     var sourceEndpoint = {
         isSource: true,
         connector: [ "Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true } ],
-        anchor: 'Right'
+        anchor: 'Right',
+        paintStyle: { fill: "#7AB02C", radius: 7 },
     };
 
     var targetEndpoint = {
         isTarget: true,
-        anchor: 'Left'
+        anchor: 'Left',
+        paintStyle: {
+            stroke: "#7AB02C",
+            fill: "transparent",
+            radius: 7,
+            strokeWidth: 1
+        },
     }
 
     instance.addEndpoint('a', sourceEndpoint);
+    instance.addEndpoint('a', targetEndpoint);
+
+    instance.addEndpoint('b', sourceEndpoint);
     instance.addEndpoint('b', targetEndpoint);
 
-    // jsPlumb.connect({source: "a",target: "b",}, common);
+    instance.addEndpoint('c', sourceEndpoint);
+    instance.addEndpoint('c', targetEndpoint);
+
+    .connect({source: "a",target: "b",});
 
     var els = document.querySelectorAll(".note");
     instance.draggable(els);
